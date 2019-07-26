@@ -1,17 +1,21 @@
 #include <vector>
+#include "../Util/Coord.hpp"
 
 #include <SFML/Graphics.hpp>
 
 namespace Screen
 {
-    class Board : public sf::Drawable
+    class Board
     {
         public:
 
         Board();
         ~Board() = default;
 
-        void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+        void draw(sf::RenderWindow& win, iCoord screensize);
+        void update(sf::RenderWindow& win, iCoord mouseCoords);
+
+        static constexpr int size = 3;
 
         private:
 
@@ -30,6 +34,6 @@ namespace Screen
             FREE, FREE, FREE
         };
 
-
+        void checkLogic();
     };
 }
