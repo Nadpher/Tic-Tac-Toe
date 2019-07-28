@@ -2,19 +2,49 @@
 
 Screen::Board::Board()
 {
-
+    logic = 
+    {
+        FREE, FREE, FREE,
+        FREE, FREE, FREE,
+        FREE, FREE, FREE
+    };
 }
 
-// Dividing by 3 since the grid is 3x3
+bool Screen::Board::gameOver() {return bGameisOver;}
+bool Screen::Board::equals3(int num1, int num2, int num3)
+{
+    if (num1 == num2 && num1 == num3 && num2 == num3 && num1 != FREE)
+    {
+        return true;
+    }
+    return false;
+}
+
 void Screen::Board::setCellSize(iCoord windowSize)
 {
-    cellsize.x = windowSize.x / 3;
-    cellsize.y = windowSize.y / 3;
+    cellsize.x = windowSize.x / size;
+    cellsize.y = windowSize.y / size;
 }
 
-void Screen::Board::checkLogic()
+int Screen::Board::checkLogic()
 {
+    // Vertical
+    for(int i = 0; i < size; ++i)
+    {
+        if (equals3(logic[i * size + 0], logic[i * size + 1], logic[i * size + 2]))
+        {
+            return logic[i * size + 0];
+        }
+    }
 
+    // Horizontal
+    for(int i = 0; i < size; ++i)
+    {
+        if (equals3(logic[0 * size + i], logic[1 * size + i], logic[2 * size + i]))
+        {
+            return logic[0 * size + i];
+        }
+    }
 }
 
 // Is only called once, manually setting the lines is just easier
@@ -24,17 +54,17 @@ void Screen::Board::draw(sf::RenderWindow& win)
     {
         // Horizontal lines
         sf::Vertex(sf::Vector2f(0, cellsize.y)),
-        sf::Vertex(sf::Vector2f(cellsize.x * 3, cellsize.y)),
+        sf::Vertex(sf::Vector2f(cellsize.x * size, cellsize.y)),
 
         sf::Vertex(sf::Vector2f(0, cellsize.y * 2)),
-        sf::Vertex(sf::Vector2f(cellsize.x * 3, cellsize.y * 2)),
+        sf::Vertex(sf::Vector2f(cellsize.x * size, cellsize.y * 2)),
 
         // Vertical Lines
         sf::Vertex(sf::Vector2f(cellsize.x, 0)),
-        sf::Vertex(sf::Vector2f(cellsize.x, cellsize.y * 3)),
+        sf::Vertex(sf::Vector2f(cellsize.x, cellsize.y * size)),
 
         sf::Vertex(sf::Vector2f(cellsize.x * 2, 0)),
-        sf::Vertex(sf::Vector2f(cellsize.x * 2, cellsize.y * 3))
+        sf::Vertex(sf::Vector2f(cellsize.x * 2, cellsize.y * size))
     };
 
     // Draws the vertex array, 8 is the number of vertex

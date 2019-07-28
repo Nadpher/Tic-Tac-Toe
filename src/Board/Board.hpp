@@ -15,11 +15,13 @@ namespace Screen
         void draw(sf::RenderWindow& win);
         void update(sf::RenderWindow& win, iCoord mouseCoords);
         void setCellSize(iCoord windowSize);
+        bool gameOver();
 
         static constexpr int size = 3;
 
         private:
 
+        bool bGameisOver = false;
         iCoord cellsize;
 
         enum Tile
@@ -30,13 +32,9 @@ namespace Screen
         };
 
         // represents the screen using ints
-        std::vector<int> logic
-        {
-            FREE, FREE, FREE,
-            FREE, FREE, FREE,
-            FREE, FREE, FREE
-        };
+        std::vector<int> logic;
 
-        void checkLogic();
+        bool equals3(int num1, int num2, int num3);
+        int checkLogic();
     };
 }
