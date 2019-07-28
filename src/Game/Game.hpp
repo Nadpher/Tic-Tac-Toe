@@ -18,8 +18,6 @@ namespace Application
         sf::RenderWindow window;
         Screen::Board board;
 
-        iCoord screenSize;
-
         void handleEvents();
 
     };

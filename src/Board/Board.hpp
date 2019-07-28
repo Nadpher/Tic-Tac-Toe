@@ -12,12 +12,15 @@ namespace Screen
         Board();
         ~Board() = default;
 
-        void draw(sf::RenderWindow& win, iCoord screensize);
+        void draw(sf::RenderWindow& win);
         void update(sf::RenderWindow& win, iCoord mouseCoords);
+        void setCellSize(iCoord windowSize);
 
         static constexpr int size = 3;
 
         private:
+
+        iCoord cellsize;
 
         enum Tile
         {

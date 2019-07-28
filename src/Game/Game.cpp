@@ -1,9 +1,9 @@
 #include "Game.hpp"
 
 Application::Game::Game(iCoord pScreenSize, const char* windowName)
-: screenSize{pScreenSize}
 {
-    window.create(sf::VideoMode(screenSize.x, screenSize.y), windowName);
+    window.create(sf::VideoMode(pScreenSize.x, pScreenSize.y), windowName, sf::Style::Titlebar | sf::Style::Close);
+    board.setCellSize(pScreenSize);
 }
 
 void Application::Game::handleEvents()
@@ -29,7 +29,7 @@ void Application::Game::handleEvents()
 
 void Application::Game::run()
 {
-    board.draw(window, screenSize);
+    board.draw(window);
 
     while (window.isOpen())
     {
