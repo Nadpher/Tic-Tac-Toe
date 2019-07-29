@@ -25,6 +25,8 @@ fCoord Application::Game::selectCell(iCoord cursorPosition)
             }
         }
     }
+
+    return {0, 0};
 }
 
 void Application::Game::handleEvents()
