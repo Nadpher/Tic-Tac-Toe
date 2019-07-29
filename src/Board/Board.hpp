@@ -13,17 +13,17 @@ namespace Screen
         ~Board() = default;
 
         void draw(sf::RenderWindow& win);
-        void update(sf::RenderWindow& win, iCoord cell);
-        iCoord setCellSize(iCoord windowSize);
+        void update(sf::RenderWindow& win, fCoord cell);
+        fCoord setCellSize(iCoord windowSize);
         bool gameOver();
-        bool empty(iCoord index);
+        bool empty(fCoord index);
 
         static constexpr int size = 3;
 
         private:
 
         bool bGameisOver = false;
-        iCoord cellsize;
+        fCoord cellsize;
 
         enum Tile
         {
@@ -39,7 +39,7 @@ namespace Screen
 
         bool equals3(int num1, int num2, int num3);
         void nextTurn();
-        void place(iCoord index);
+        void place(fCoord index);
         int checkLogic();
     };
 }

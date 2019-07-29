@@ -6,13 +6,13 @@ Application::Game::Game(iCoord pScreenSize, const char* windowName)
     cellsize = board.setCellSize(pScreenSize);
 }
 
-iCoord Application::Game::selectCell(iCoord cursorPosition)
+fCoord Application::Game::selectCell(iCoord cursorPosition)
 {
     for (size_t i = 0; i < Screen::Board::size; ++i)
     {
         for (size_t j = 0; j < Screen::Board::size; ++j)
         {
-            iCoord cellPosition = {j * cellsize.x, i * cellsize.y};
+            fCoord cellPosition = {j * cellsize.x, i * cellsize.y};
 
             // AABB Collision detection 
             // Size isn't added to mouse coordinates since the cursor doesn't have a rectangle
@@ -21,7 +21,7 @@ iCoord Application::Game::selectCell(iCoord cursorPosition)
                 cursorPosition.y < cellPosition.y + cellsize.y &&
                 cursorPosition.y > cellPosition.y)
             {
-                return {j, i};
+                return {static_cast<float>(j), static_cast<float>(i)};
             }
         }
     }
@@ -41,7 +41,7 @@ void Application::Game::handleEvents()
             case sf::Event::MouseButtonPressed:
             if (event.mouseButton.button == sf::Mouse::Button::Left)
             {
-                iCoord cell = selectCell({event.mouseButton.x, event.mouseButton.y});
+                fCoord cell = selectCell({event.mouseButton.x, event.mouseButton.y});
                 if (board.empty(cell))
                 {
                     board.update(window, cell);

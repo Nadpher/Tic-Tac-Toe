@@ -22,7 +22,7 @@ bool Screen::Board::equals3(int num1, int num2, int num3)
     return false;
 }
 
-iCoord Screen::Board::setCellSize(iCoord windowSize)
+fCoord Screen::Board::setCellSize(iCoord windowSize)
 {
     cellsize.x = windowSize.x / size;
     cellsize.y = windowSize.y / size;
@@ -51,18 +51,20 @@ int Screen::Board::checkLogic()
             return logic[0 * size + i];
         }
     }
+
+    return 0;
 }
 
-void Screen::Board::place(iCoord index)
+void Screen::Board::place(fCoord index)
 {
     logic[index.y * size + index.x] = player;
     if (player == PLAYER1)
     {
-        player == PLAYER2;
+        player = PLAYER2;
     }
     else
     {
-        player == PLAYER1;
+        player = PLAYER1;
     }
     
 }
@@ -91,7 +93,7 @@ void Screen::Board::draw(sf::RenderWindow& win)
     win.draw(grid, 8, sf::Lines);
 }
 
-bool Screen::Board::empty(iCoord index)
+bool Screen::Board::empty(fCoord index)
 {
     if (logic[index.y * size + index.x] == FREE)
     {
@@ -101,7 +103,7 @@ bool Screen::Board::empty(iCoord index)
     return false;
 }
 
-void Screen::Board::update(sf::RenderWindow& win, iCoord cell)
+void Screen::Board::update(sf::RenderWindow& win, fCoord cell)
 {
     switch(player)
     {
@@ -128,8 +130,6 @@ void Screen::Board::update(sf::RenderWindow& win, iCoord cell)
 
             win.draw(cross, 4, sf::Lines);
         }
-        
-
     }
 
     place(cell);
