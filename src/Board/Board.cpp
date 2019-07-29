@@ -71,7 +71,31 @@ void Screen::Board::draw(sf::RenderWindow& win)
     win.draw(grid, 8, sf::Lines);
 }
 
+bool Screen::Board::empty()
+{
+    
+}
+
 void Screen::Board::update(sf::RenderWindow& win, iCoord mouseCoords)
 {
+    for (size_t i = 0; i < size; ++i)
+    {
+        for (size_t j = 0; j < size; ++j)
+        {
+            iCoord cellPosition = {j * cellsize.x, i * cellsize.y};
 
+            // AABB Collision detection 
+            // Size isn't added to mouse coordinates since the cursor doesn't have a rectangle
+            if (mouseCoords.x < cellPosition.x + cellsize.x &&
+                mouseCoords.x > cellPosition.x              &&
+                mouseCoords.y < cellPosition.y + cellsize.y &&
+                mouseCoords.y > cellPosition.y)
+            {
+                place({j, i});
+                nextTurn();
+            }
+        }
+    }
+
+    checkLogic();
 }
