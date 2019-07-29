@@ -33,6 +33,7 @@ int Screen::Board::checkLogic()
     {
         if (equals3(logic[i * size + 0], logic[i * size + 1], logic[i * size + 2]))
         {
+            bGameisOver = true;
             return logic[i * size + 0];
         }
     }
@@ -42,6 +43,7 @@ int Screen::Board::checkLogic()
     {
         if (equals3(logic[0 * size + i], logic[1 * size + i], logic[2 * size + i]))
         {
+            bGameisOver = true;
             return logic[0 * size + i];
         }
     }
@@ -71,31 +73,19 @@ void Screen::Board::draw(sf::RenderWindow& win)
     win.draw(grid, 8, sf::Lines);
 }
 
-bool Screen::Board::empty()
+bool Screen::Board::empty(iCoord index)
 {
-    
+    if (logic[index.y * size + index.x] == FREE)
+    {
+        return true;
+    }
+
+    return false;
 }
 
 void Screen::Board::update(sf::RenderWindow& win, iCoord mouseCoords)
 {
-    for (size_t i = 0; i < size; ++i)
-    {
-        for (size_t j = 0; j < size; ++j)
-        {
-            iCoord cellPosition = {j * cellsize.x, i * cellsize.y};
-
-            // AABB Collision detection 
-            // Size isn't added to mouse coordinates since the cursor doesn't have a rectangle
-            if (mouseCoords.x < cellPosition.x + cellsize.x &&
-                mouseCoords.x > cellPosition.x              &&
-                mouseCoords.y < cellPosition.y + cellsize.y &&
-                mouseCoords.y > cellPosition.y)
-            {
-                place({j, i});
-                nextTurn();
-            }
-        }
-    }
+    
 
     checkLogic();
 }

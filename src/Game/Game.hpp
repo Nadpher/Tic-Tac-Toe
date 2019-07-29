@@ -19,6 +19,6 @@ namespace Application
         Screen::Board board;
 
         void handleEvents();
-
+        iCoord selectCell(iCoord cursorPosition);
     };
 }

@@ -37,7 +37,8 @@ namespace Screen
         std::vector<int> players;
 
         bool equals3(int num1, int num2, int num3);
-        bool empty();
+        bool empty(iCoord index);
+        void nextTurn();
         void place(iCoord index);
         int checkLogic();
     };
