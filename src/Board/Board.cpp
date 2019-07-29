@@ -8,6 +8,8 @@ Screen::Board::Board()
         FREE, FREE, FREE,
         FREE, FREE, FREE
     };
+
+    player = PLAYER1;
 }
 
 bool Screen::Board::gameOver() {return bGameisOver;}
@@ -20,10 +22,12 @@ bool Screen::Board::equals3(int num1, int num2, int num3)
     return false;
 }
 
-void Screen::Board::setCellSize(iCoord windowSize)
+iCoord Screen::Board::setCellSize(iCoord windowSize)
 {
     cellsize.x = windowSize.x / size;
     cellsize.y = windowSize.y / size;
+
+    return cellsize;
 }
 
 int Screen::Board::checkLogic()
@@ -47,6 +51,20 @@ int Screen::Board::checkLogic()
             return logic[0 * size + i];
         }
     }
+}
+
+void Screen::Board::place(iCoord index)
+{
+    logic[index.y * size + index.x] = player;
+    if (player == PLAYER1)
+    {
+        player == PLAYER2;
+    }
+    else
+    {
+        player == PLAYER1;
+    }
+    
 }
 
 // Is only called once, manually setting the lines is just easier
@@ -83,9 +101,27 @@ bool Screen::Board::empty(iCoord index)
     return false;
 }
 
-void Screen::Board::update(sf::RenderWindow& win, iCoord mouseCoords)
+void Screen::Board::update(sf::RenderWindow& win, iCoord cell)
 {
-    
+    switch(player)
+    {
+        case PLAYER1:
+        sf::CircleShape shape(cellsize.x);
+        shape.setScale({cellsize.x, cellsize.y});
+        shape.setPosition({cellsize.x * cell.x, cellsize.y * cell.y});
+        win.draw(shape);
+        break;
 
+        case PLAYER2:
+        sf::Vertex cross[] =
+        {
+            sf::Vertex(sf::Vector2f(cellsize.x * cell.x, cellsize.y * cell.y)),
+            sf::Vertex(sf::Vector2f((cellsize.x * cell.x) * 2, (cellsize.y * cell.y) * 2)),
+
+        };
+
+    }
+
+    place(cell);
     checkLogic();
 }

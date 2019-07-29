@@ -17,6 +17,7 @@ namespace Application
 
         sf::RenderWindow window;
         Screen::Board board;
+        iCoord cellsize;
 
         void handleEvents();
         iCoord selectCell(iCoord cursorPosition);

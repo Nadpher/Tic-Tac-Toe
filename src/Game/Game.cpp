@@ -3,7 +3,7 @@
 Application::Game::Game(iCoord pScreenSize, const char* windowName)
 {
     window.create(sf::VideoMode(pScreenSize.x, pScreenSize.y), windowName, sf::Style::Titlebar | sf::Style::Close);
-    board.setCellSize(pScreenSize);
+    cellsize = board.setCellSize(pScreenSize);
 }
 
 iCoord Application::Game::selectCell(iCoord cursorPosition)
@@ -21,7 +21,7 @@ iCoord Application::Game::selectCell(iCoord cursorPosition)
                 cursorPosition.y < cellPosition.y + cellsize.y &&
                 cursorPosition.y > cellPosition.y)
             {
-                return 
+                return {j, i};
             }
         }
     }
@@ -42,7 +42,10 @@ void Application::Game::handleEvents()
             if (event.mouseButton.button == sf::Mouse::Button::Left)
             {
                 iCoord cell = selectCell({event.mouseButton.x, event.mouseButton.y});
-                board.update(window, {event.mouseButton.x, event.mouseButton.y});
+                if (board.empty(cell))
+                {
+                    board.update(window, cell);
+                }
             }
             break;
         }

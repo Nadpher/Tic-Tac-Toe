@@ -13,9 +13,10 @@ namespace Screen
         ~Board() = default;
 
         void draw(sf::RenderWindow& win);
-        void update(sf::RenderWindow& win, iCoord mouseCoords);
-        void setCellSize(iCoord windowSize);
+        void update(sf::RenderWindow& win, iCoord cell);
+        iCoord setCellSize(iCoord windowSize);
         bool gameOver();
+        bool empty(iCoord index);
 
         static constexpr int size = 3;
 
@@ -31,13 +32,12 @@ namespace Screen
             PLAYER2
         };
 
+        Tile player;
+
         // represents the screen using ints
         std::vector<int> logic;
-        
-        std::vector<int> players;
 
         bool equals3(int num1, int num2, int num3);
-        bool empty(iCoord index);
         void nextTurn();
         void place(iCoord index);
         int checkLogic();
