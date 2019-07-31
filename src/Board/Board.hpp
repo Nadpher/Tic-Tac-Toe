@@ -13,7 +13,7 @@ namespace Screen
         ~Board() = default;
 
         void draw(sf::RenderWindow& win);
-        void update(sf::RenderWindow& win, fCoord cell);
+        std::string update(sf::RenderWindow& win, fCoord cell);
         fCoord setCellSize(iCoord windowSize);
         bool gameOver();
         bool empty(fCoord index);

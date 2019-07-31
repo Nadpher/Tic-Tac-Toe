@@ -52,7 +52,15 @@ int Screen::Board::checkLogic()
         }
     }
 
-    return 0;
+    // Diagonal
+    if (equals3(logic[0 * size + 0], logic[1 * size + 1], logic[2 * size + 2]) ||
+        equals3(logic[0 * size + 2], logic[1 * size + 1], logic[2 * size + 0]))
+    {
+        bGameisOver = true;
+        return logic[1 * size + 1];
+    }
+
+    return -1;
 }
 
 void Screen::Board::place(fCoord index)
@@ -103,7 +111,7 @@ bool Screen::Board::empty(fCoord index)
     return false;
 }
 
-void Screen::Board::update(sf::RenderWindow& win, fCoord cell)
+std::string Screen::Board::update(sf::RenderWindow& win, fCoord cell)
 {
     switch(player)
     {
@@ -129,11 +137,25 @@ void Screen::Board::update(sf::RenderWindow& win, fCoord cell)
 
             win.draw(cross, 4, sf::Lines);
         }
-
+        
         default:
         break;
     }
 
     place(cell);
-    checkLogic();
+    int result = checkLogic();
+
+    switch (result)
+    {
+        case PLAYER1:
+        return "Circle wins!";
+
+        case PLAYER2:
+        return "Cross wins!";
+
+        case FREE:
+        return "Tie!";
+    }
+
+    return "Default";
 }

@@ -18,8 +18,10 @@ namespace Application
         sf::RenderWindow window;
         Screen::Board board;
         fCoord cellsize;
+        std::string result;
 
         void handleEvents();
+        void end();
         fCoord selectCell(iCoord cursorPosition);
     };
 }
