@@ -109,27 +109,29 @@ void Screen::Board::update(sf::RenderWindow& win, fCoord cell)
     {
         case PLAYER1:
         {
-            sf::CircleShape shape(cellsize.x);
-            shape.setScale({cellsize.x, cellsize.y});
+            sf::CircleShape shape(cellsize.x / 2);
             shape.setPosition({cellsize.x * cell.x, cellsize.y * cell.y});
             win.draw(shape);
             break;
         }
-        
+            
 
         case PLAYER2:
         {
             sf::Vertex cross[] =
             {   
                 sf::Vertex(sf::Vector2f(cellsize.x * cell.x, cellsize.y * cell.y)),
-                sf::Vertex(sf::Vector2f((cellsize.x * cell.x) * 2, (cellsize.y * cell.y) * 2)),
+                sf::Vertex(sf::Vector2f((cellsize.x * cell.x) + cellsize.x, (cellsize.y * cell.y) + cellsize.y)),
                 
                 sf::Vertex(sf::Vector2f((cellsize.x * cell.x) + cellsize.x, cellsize.y * cell.y)),
-                sf::Vertex(sf::Vector2f((cellsize.x * cell.x) + cellsize.x, (cellsize.y * cell.y) + cellsize.y))
+                sf::Vertex(sf::Vector2f(cellsize.x * cell.x, (cellsize.y * cell.y) + cellsize.y))
             };
 
             win.draw(cross, 4, sf::Lines);
         }
+
+        default:
+        break;
     }
 
     place(cell);
