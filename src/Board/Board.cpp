@@ -32,6 +32,9 @@ fCoord Screen::Board::setCellSize(iCoord windowSize)
 
 int Screen::Board::checkLogic()
 {
+    static int movecount = 0;
+    ++movecount;
+
     // Vertical
     for(int i = 0; i < size; ++i)
     {
@@ -58,6 +61,12 @@ int Screen::Board::checkLogic()
     {
         bGameisOver = true;
         return logic[1 * size + 1];
+    }
+
+    if (movecount == 9)
+    {
+        bGameisOver = true;
+        return FREE;
     }
 
     return -1;

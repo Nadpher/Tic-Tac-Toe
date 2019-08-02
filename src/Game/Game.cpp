@@ -1,5 +1,7 @@
 #include "Game.hpp"
 #include <iostream>
+#include <chrono>
+#include <thread>
 
 Application::Game::Game(iCoord pScreenSize, const char* windowName)
 {
@@ -59,10 +61,21 @@ void Application::Game::end()
 {
     window.clear(sf::Color::Black);
 
+    
+    sf::Font roboto;
+    if (!roboto.loadFromFile("../res/fonts/Roboto-Thin.ttf"))
+    {
+        std::wcout << L"Error loading font\n";
+        exit(EXIT_FAILURE);
+    }
+    
     sf::Text txt;
     txt.setString(result);
+    txt.setFont(roboto);
 
     window.draw(txt);
+    window.display();
+    std::this_thread::sleep_for((std::chrono::milliseconds)5000);
 }
 
 void Application::Game::run()
