@@ -68,7 +68,7 @@ void Application::Game::end()
         std::wcout << L"Error loading font\n";
         exit(EXIT_FAILURE);
     }
-    
+
     sf::Text txt;
     txt.setString(result);
     txt.setFont(roboto);
@@ -89,7 +89,7 @@ void Application::Game::run()
 
         if (board.gameOver())
         {
-            end();
+            end();            
             break;
         }
     }
